@@ -1,0 +1,231 @@
+/* =====================================================
+   CORE RESET & VARIABLES 
+===================================================== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #f9f9f7;
+  --text: #1a1a1a;
+  --muted: #666;
+  --neon-cyan: #00f7ff;
+  --max-width: 1100px;
+}
+
+.dark {
+  --bg: #050509;
+  --text: #f4f4f4;
+  --muted: #aaa;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* =====================================================
+   THE CENTERING ENGINE
+===================================================== */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 40px;
+  width: 100%;
+}
+
+/* =====================================================
+   CASE STUDY ENGINE (Fixes the distortion)
+===================================================== */
+.case-hero {
+  padding: 140px 0 60px;
+}
+
+.case-hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 8vw, 5rem);
+  line-height: 1.1;
+  margin-top: 10px;
+}
+
+.case-row {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  margin-bottom: 120px; /* Airy editorial spacing */
+}
+
+/* Desktop Split Layout */
+@media (min-width: 900px) {
+  .case-row.split {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 100px;
+  }
+  .case-row.split .case-text {
+    flex: 1;
+    position: sticky; /* Keeps text in view while scrolling images */
+    top: 100px;
+  }
+  .case-row.split .case-visual {
+    flex: 1.2;
+  }
+}
+
+.case-text h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem;
+  margin-bottom: 25px;
+}
+
+.editorial-img {
+  width: 100%;
+  height: auto; /* Prevents stretching */
+  display: block;
+  margin-bottom: 20px;
+}
+
+.activation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.activation-item {
+  padding: 30px;
+  background: rgba(128, 128, 128, 0.05);
+  border-radius: 4px;
+}
+
+/* =====================================================
+   FIXED THEME TOGGLE
+===================================================== */
+.theme-toggle {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: var(--text);
+  color: var(--bg);
+  cursor: pointer;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.dark .theme-toggle {
+  box-shadow: 0 0 15px rgba(255, 230, 0, 0.4);
+}
+
+/* =====================================================
+   NAVIGATION & HERO
+===================================================== */
+.site-nav { padding: 40px 0; }
+.nav-flex { display: flex; justify-content: space-between; align-items: center; }
+.logo { 
+  font-family: 'Cormorant Garamond', serif; 
+  font-size: 1.8rem; 
+  font-weight: 600; 
+  text-decoration: none; 
+  color: var(--text); 
+}
+
+.hero {
+  min-height: 85vh;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 60px;
+  padding-top: 40px;
+}
+
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  margin-bottom: 20px;
+}
+
+.dark .hero h1 { text-shadow: 0 0 10px rgba(0,247,255,0.3); } 
+.dark .highlight { color: var(--neon-cyan); }
+
+/* =====================================================
+   BLOG SECTION
+===================================================== */
+.blog-header { padding: 80px 0 40px; }
+.blog-header h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3.2rem;
+  margin-bottom: 20px;
+}
+
+.blog-list {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  padding-bottom: 100px;
+}
+
+.blog-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.6rem;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.read-link {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* =====================================================
+   MINIMAL CONTACT FORM
+===================================================== */
+.contact { padding: 100px 0; }
+.contact-wrapper { max-width: 600px; }
+
+.minimal-form input, .minimal-form textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+  padding: 15px 0;
+  color: inherit;
+  font-family: inherit;
+  font-size: 1.1rem;
+}
+
+.dark .minimal-form input:focus { border-bottom-color: var(--neon-cyan); }
+
+.btn-send {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-style: italic;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* =====================================================
+   ANIMATIONS & RESPONSIVE
+===================================================== */
+.reveal { opacity: 0; transform: translateY(20px); transition: 0.8s ease-out; }
+.reveal.fade-in { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; text-align: center; }
+  .container { padding: 0 24px; }
+  .blog-header h1 { font-size: 2.4rem; }
+  .blog-card h3 { font-size: 2rem; }
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sruthi Ajith | Copywriter</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  
+  <script>
+    /* Immediate check to apply dark mode before the page renders */
+    (function () {
+      const saved = localStorage.getItem("theme");
+      const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      if (saved === "dark" || (!saved && systemDark)) {
+        document.documentElement.classList.add("dark");
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<button id="themeToggle" class="theme-toggle" aria-label="Toggle Theme">🌙</button>
+
+<nav class="site-nav">
+  <div class="container nav-flex">
+    <a href="index.html" class="logo">SA.</a>
+    <a href="blog.html">Blog</a>
+  </div>
+</nav>
+
+<header class="hero container">
+  <div class="hero-content reveal">
+    <h1>Sruthi Ajith</h1>
+    <p class="hero-line">
+      I write copy that makes people <span class="highlight">stop scrolling</span><br>
+      and <span class="highlight">start buying</span>.
+    </p>
+    <a href="#work" class="btn-primary">View Selected Work</a>
+  </div>
+
+  <div class="hero-image-wrapper reveal">
+    <img src="images/hero.jpg" alt="Editorial portrait" class="editorial-img">
+  </div>
+</header>
+
+<section class="about container">
+  <h2 class="reveal">About</h2>
+  <p class="reveal">
+    I’m a copywriter who believes good copy isn’t clever — it’s clear,
+    persuasive, and built to convert.
+  </p>
+</section>
+
+<div class="image-break">
+  <img src="images/editorial-1.jpg" class="image-full reveal" alt="">
+</div>
+
+<section id="work" class="work container">
+  <h2 class="reveal">Selected Work</h2>
+  <div id="work-grid" class="work-grid"></div>
+</section>
+
+<section class="contact container">
+  <div class="contact-wrapper reveal">
+    <h2>Let’s Work Together</h2>
+    <form action="https://formspree.io/f/xnjbqage" method="POST" class="minimal-form">
+      <div class="input-group">
+        <input type="text" name="name" placeholder="Your name" required />
+      </div>
+      <div class="input-group">
+        <input type="email" name="email" placeholder="Your email" required />
+      </div>
+      <div class="input-group">
+        <textarea name="message" placeholder="Tell me about your project" required></textarea>
+      </div>
+      <button type="submit" class="btn-send">Send message</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>© 2026 Sruthi Ajith</p>
+  </div>
+</footer>
+
+<script>
+  /* Project Loader Logic */
+  const projects = [
+    { title: "01. Skippi Icepops", category: "SaaS · Conversion copy", link: "articles/landing-page-copy.html" },
+    { title: "02. Email Sequence", category: "Email marketing", link: "articles/email-campaign.html" },
+    { title: "03. Product Descriptions", category: "E-commerce copy", link: "articles/product-descriptions.html" }
+  ];
+
+  function loadProjects() {
+    const grid = document.getElementById('work-grid');
+    if(grid) {
+      grid.innerHTML = projects.map(p => `
+        <div class="card reveal">
+          <h3>${p.title}</h3>
+          <p>${p.category}</p>
+          <a href="${p.link}" class="card-link">Read Case Study →</a>
+        </div>
+      `).join('');
+    }
+  }
+
+  /* Scroll Reveal Observer */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('fade-in'); }
+    });
+  }, { threshold: 0.1 });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    loadProjects();
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  });
+</script>
+
+<script src="js/theme.js"></script>
+</body>
+</html>

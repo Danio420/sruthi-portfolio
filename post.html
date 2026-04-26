@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reading | Sruthi Ajith</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <script>
+    (function () {
+      const saved = localStorage.getItem("theme");
+      if (saved === "dark" || (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+        document.documentElement.classList.add("dark");
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body class="post-page">
+
+  <button id="themeToggle" class="theme-toggle" aria-label="Toggle Theme">🌙</button>
+
+  <nav class="site-nav">
+    <div class="container nav-flex">
+      <a href="index.html" class="logo">SA.</a>
+      <a href="blog.html" class="back-link">← Back to Blog</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <article class="blog-post">
+      <div id="content" class="post-content reveal">
+        <div class="loading">Loading thoughts...</div>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 Sruthi Ajith</p>
+    </div>
+  </footer>
+
+  <script src="js/blog.js"></script>
+  <script src="js/theme.js"></script>
+</body>
+</html>

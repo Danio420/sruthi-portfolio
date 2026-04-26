@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog | Sruthi Ajith</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  
+  <script>
+    /* Immediate theme check */
+    (function () {
+      const saved = localStorage.getItem("theme");
+      if (saved === "dark" || (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+        document.documentElement.classList.add("dark");
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="blog-page">
+
+<button id="themeToggle" class="theme-toggle" aria-label="Toggle Theme">🌙</button>
+
+<nav class="site-nav">
+  <div class="container nav-flex">
+    <a href="index.html" class="logo">SA.</a>
+    <a href="index.html" class="back-link">Portfolio</a>
+  </div>
+</nav>
+
+<main class="container">
+  <header class="blog-header reveal">
+    <h1>Words, Thoughts & Copy</h1>
+    <p class="subtitle">Musings on clarity, conversion, and the art of persuasion.</p>
+  </header>
+
+  <section id="blog-grid" class="blog-list">
+    <div class="loading">Fetching posts...</div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <p>© 2026 Sruthi Ajith</p>
+  </div>
+</footer>
+
+<script>
+  /* 1. Blog Data System */
+  const blogPosts = [
+    {
+      title: "Why Most Copy Doesn’t Convert",
+      excerpt: "Because clarity beats cleverness.",
+      slug: "post1"
+    },
+    {
+      title: "How to Write Copy That Sells",
+      excerpt: "Without sounding salesy.",
+      slug: "post2"
+    }
+  ];
+
+  /* 2. Render logic using serif headers */
+  function renderBlogPosts() {
+    const grid = document.getElementById('blog-grid');
+    if(grid) {
+      grid.innerHTML = blogPosts.map(post => `
+        <article class="blog-card reveal">
+          <h3>${post.title}</h3>
+          <p>${post.excerpt}</p>
+          <a href="post.html?post=${post.slug}" class="read-link">Read →</a>
+        </article>
+      `).join('');
+    }
+  }
+
+  /* 3. Reveal Observer */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('fade-in'); }
+    });
+  }, { threshold: 0.1 });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    renderBlogPosts();
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  });
+</script>
+<script src="js/theme.js"></script>
+</body>
+</html>

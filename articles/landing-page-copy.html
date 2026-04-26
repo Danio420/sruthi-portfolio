@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skippi Ice Pops | Sruthi Ajith</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <script>
+    (function () {
+      const saved = localStorage.getItem("theme");
+      if (saved === "dark" || (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+        document.documentElement.classList.add("dark");
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+
+<body class="case-study-page">
+  <button id="themeToggle" class="theme-toggle" aria-label="Toggle Theme">🌙</button>
+
+  <nav class="site-nav">
+    <div class="container nav-flex">
+      <a href="../index.html" class="logo">SA.</a>
+      <a href="../index.html" class="back-link">← Portfolio</a>
+    </div>
+  </nav>
+
+  <header class="case-hero container reveal">
+    <span class="category">Brand Campaign</span>
+    <h1>Skippi Ice Pops</h1>
+    <p class="subtitle">Turning a frozen treat into a cultural moment</p>
+  </header>
+
+  <main class="container">
+    <section class="case-row reveal">
+      <div class="case-text">
+        <h2>The Ask</h2>
+        <p class="lead-text">Move Skippi from “a frozen treat I like” to “a frozen moment everyone wants.”</p>
+      </div>
+      <div class="case-visual">
+        <img src="../images/New Folder/hero.jpg" alt="Skippi Hero" class="editorial-img">
+      </div>
+    </section>
+
+    <section class="case-row reveal">
+      <div class="case-visual full-width">
+        <img src="../images/New Folder/corner-shop.jpg" alt="Corner Shop" class="editorial-img">
+        <p class="caption">Back to the Corner Shop</p>
+      </div>
+      <div class="case-text">
+        <h2>Core Insight</h2>
+        <p>Nostalgia lives in small rituals — melting pops, school bells, sticky fingers, and counting coins at the corner shop.</p>
+      </div>
+    </section>
+
+    <section class="case-row split reveal">
+      <div class="case-text">
+        <h2>Campaign Lines</h2>
+        <ul class="editorial-list">
+          <li>Nostalgia is sticky. <span class="italic">Let it drip.</span></li>
+          <li>One drip and you’re <span class="italic">8 again.</span></li>
+          <li>Let the memories <span class="italic">melt all over again.</span></li>
+        </ul>
+      </div>
+      <div class="case-visual">
+        <img src="../images/New Folder/sticky-fingers.jpg" alt="Sticky Fingers" class="editorial-img">
+      </div>
+    </section>
+
+    <section class="case-row reveal">
+      <div class="case-text full-width">
+        <h2>Memory Pops</h2>
+        <div class="activation-grid">
+          <div class="activation-item"><strong>Mango</strong><span>Operation Mango Heist</span></div>
+          <div class="activation-item"><strong>Cola</strong><span>Tongue Check Squad</span></div>
+          <div class="activation-item"><strong>Lemon</strong><span>Summer Lemon Squeeze</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-footer-section reveal">
+      <h2>Expected Impact</h2>
+      <ul class="impact-list">
+        <li>Own “sticky nostalgia” as creative territory</li>
+        <li>Drive UGC with #StickyFingers</li>
+        <li>Build emotional affinity with adults</li>
+      </ul>
+      <a href="../index.html" class="btn-primary">← Back to Portfolio</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Sruthi Ajith</p>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script>
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('fade-in');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
