@@ -8,7 +8,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   
   <script>
-    /* Immediate theme check */
     (function () {
       const saved = localStorage.getItem("theme");
       if (saved === "dark" || (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
@@ -25,7 +24,7 @@
 <nav class="site-nav">
   <div class="container nav-flex">
     <a href="index.html" class="logo">SA.</a>
-    <a href="index.html" class="back-link">Portfolio</a>
+    <a href="index.html" class="back-link">← Portfolio</a>
   </div>
 </nav>
 
@@ -36,7 +35,7 @@
   </header>
 
   <section id="blog-grid" class="blog-list">
-    <div class="loading">Fetching posts...</div>
+    <div class="loading">Loading thoughts...</div>
   </section>
 </main>
 
@@ -47,45 +46,67 @@
 </footer>
 
 <script>
-  /* 1. Blog Data System */
-  const blogPosts = [
-    {
-      title: "Why Most Copy Doesn’t Convert",
-      excerpt: "Because clarity beats cleverness.",
-      slug: "post1"
-    },
-    {
-      title: "How to Write Copy That Sells",
-      excerpt: "Without sounding salesy.",
-      slug: "post2"
-    }
-  ];
+  /* THE REGISTRY: 
+     When the client adds a new post in the CMS (e.g., 'testing.md'), 
+     just add the filename (without .md) to this list.
+  */
+  const postSlugs = ["post1", "post2", "testing"];
 
-  /* 2. Render logic using serif headers */
-  function renderBlogPosts() {
+  /* DYNAMIC LOADER:
+     This fetches the first few lines of each markdown file 
+     to build the cards automatically.
+  */
+  async function loadPosts() {
     const grid = document.getElementById('blog-grid');
-    if(grid) {
-      grid.innerHTML = blogPosts.map(post => `
-        <article class="blog-card reveal">
-          <h3>${post.title}</h3>
-          <p>${post.excerpt}</p>
-          <a href="post.html?post=${post.slug}" class="read-link">Read →</a>
-        </article>
-      `).join('');
+    let htmlContent = '';
+
+    for (const slug of postSlugs) {
+      try {
+        const response = await fetch(`./blog/${slug}.md`);
+        if (!response.ok) continue;
+        
+        const text = await response.text();
+        
+        // Extract Title and Excerpt from Markdown or Frontmatter
+        // This looks for "title: " and "excerpt: " in your MD files
+        const titleMatch = text.match(/title:\s*"(.*)"/) || text.match(/title:\s*(.*)/);
+        const excerptMatch = text.match(/excerpt:\s*"(.*)"/) || text.match(/excerpt:\s*(.*)/);
+        
+        const title = titleMatch ? titleMatch[1] : slug.replace(/-/g, ' ');
+        const excerpt = excerptMatch ? excerptMatch[1] : "Click to read the full story.";
+
+        htmlContent += `
+          <article class="blog-card reveal">
+            <h3>${title}</h3>
+            <p>${excerpt}</p>
+            <a href="post.html?post=${slug}" class="read-link">Read Post →</a>
+          </article>
+        `;
+      } catch (err) {
+        console.error(`Error loading ${slug}:`, err);
+      }
     }
+
+    grid.innerHTML = htmlContent || '<p>No posts found.</p>';
+    
+    // Trigger Reveal Animations
+    initObserver();
   }
 
-  /* 3. Reveal Observer */
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) { entry.target.classList.add('fade-in'); }
-    });
-  }, { threshold: 0.1 });
+  /* Reveal Observer */
+  function initObserver() {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { 
+          entry.target.classList.add('fade-in'); 
+        }
+      });
+    }, { threshold: 0.1 });
 
-  document.addEventListener('DOMContentLoaded', () => {
-    renderBlogPosts();
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  });
+  }
+
+  document.addEventListener('DOMContentLoaded', loadPosts);
 </script>
 <script src="js/theme.js"></script>
 </body>
