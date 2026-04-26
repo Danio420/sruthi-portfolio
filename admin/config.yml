@@ -2,26 +2,34 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: "images/uploads" # Where their uploaded photos will go
+# Media folder setup
+media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
 collections:
   - name: "blog"
     label: "Blog Posts"
-    folder: "blog" # This targets your existing blog folder
+    folder: "blog"
     create: true
     slug: "{{slug}}"
+    editor:
+      preview: false # Set to true if you want a side-by-side preview
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Excerpt", name: "excerpt", widget: "string", hint: "A short summary for the blog list page." }
       - { label: "Body", name: "body", widget: "markdown" }
+      - { label: "Draft", name: "draft", widget: "boolean", default: false }
 
   - name: "projects"
     label: "Portfolio Projects"
     folder: "data/projects"
     create: true
+    slug: "{{title}}"
+    extension: "json" # Better for your JavaScript to read
+    format: "json"
     fields:
       - { label: "Project Title", name: "title", widget: "string" }
       - { label: "Category", name: "category", widget: "string" }
       - { label: "Cover Image", name: "image", widget: "image" }
-      - { label: "Link to Case Study", name: "link", widget: "string" }
+      - { label: "Link to Case Study", name: "link", widget: "string", hint: "Full URL or relative path to the project page." }
